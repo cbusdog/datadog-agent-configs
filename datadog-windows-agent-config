@@ -8,9 +8,57 @@ site: datadoghq.com
 
 # Global tags to apply to all metrics, logs, and traces
 tags:
-  - "environment:production"
+  - "environment:prod"
   - "role:windows_server"
+  - "region:us-east-1"
+  - "team:it_infra"
+  - "service:snmp_collector"
+  - "os:windows"
+  - "architecture:x86_64"
 
+# Datadog Agent Logging level (set to DEBUG for troubleshooting)
+log_level: INFO
+
+# Enable Remote Configuration for Agent
+remote_configuration:
+  enabled: true
+
+# Logs Collection (add log file path)
+logs_enabled: true
+
+#Windows Event Log
+logs_config:
+  - type: wineventlog
+    channel_path:
+      - System
+      - Application
+      - Security
+    include:
+      - level: error
+      - level: critical
+    tags:
+      - "environment:prod"
+      - "role:windows_event_log"
+#logs_config:
+#  - type: file
+#    path: "C:\\Path\\To\\Your\\LogFile.log"
+#    service: custom_app
+#    source: custom_app
+#    tags:
+#      - "environment:prod"
+#      - "role:windows_server"
+
+# Enables the Windows-specific Process Module
+winproc:
+  enabled: true
+
+# Enable Live Process Monitoring (optional)
+process_config:
+  enabled: true
+
+# Use the forwarder to send metrics, logs, and traces in the event of network disruption to datadoghq
+forwarder:
+  retry_queue_payloads_on_disk: true
 # Enable Network Device Monitoring (NDM)
 # Save device profiles to C:\ProgramData\Datadog\conf.d\snmp.d\profiles\
 # NDM Profile Repo: https://github.com/DataDog/integrations-core/tree/master/snmp/datadog_checks/snmp/data/profiles
@@ -29,24 +77,4 @@ system_probe_config:
   network_config:
     enabled: true
 
-# Enable Remote Configuration for Agent
-remote_configuration:
-  enabled: true
 
-# Logs Collection (add log file path)
-logs_enabled: true
-
-# Datadog Agent Logging level (set to DEBUG for troubleshooting)
-log_level: INFO
-
-# Enables the Windows-specific Process Module
-winproc:
-  enabled: true
-
-# Enable Live Process Monitoring (optional)
-process_config:
-  enabled: true
-
-# Use the forwarder to send metrics, logs, and traces in the event of network disruption to datadoghq
-forwarder:
-  retry_queue_payloads_on_disk: true
