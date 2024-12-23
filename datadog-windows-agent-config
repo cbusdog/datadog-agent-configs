@@ -1,0 +1,52 @@
+# Datadog Agent configuration file
+
+# Set your Datadog API key
+api_key: <YOUR_DATADOG_API_KEY>
+
+# Site to send data to (e.g., datadoghq.com, datadoghq.eu)
+site: datadoghq.com
+
+# Global tags to apply to all metrics, logs, and traces
+tags:
+  - "environment:production"
+  - "role:windows_server"
+
+# Enable Network Device Monitoring (NDM)
+# Save device profiles to C:\ProgramData\Datadog\conf.d\snmp.d\profiles\
+# NDM Profile Repo: https://github.com/DataDog/integrations-core/tree/master/snmp/datadog_checks/snmp/data/profiles
+network_devices:
+  enabled: true
+  snmp_traps:
+    enabled: true
+    port: 162               # Default port for SNMP traps
+    community_strings:
+      - public              # Add your community strings
+    n_traps_max: 2000       # Optional: Maximum number of traps to process at a time
+
+# Enable for Cloud Network Monitoring (CNM)
+system_probe_config:
+  enabled: true
+  network_config:
+    enabled: true
+
+# Enable Remote Configuration for Agent
+remote_configuration:
+  enabled: true
+
+# Logs Collection (add log file path)
+logs_enabled: true
+
+# Datadog Agent Logging level (set to DEBUG for troubleshooting)
+log_level: INFO
+
+# Enables the Windows-specific Process Module
+winproc:
+  enabled: true
+
+# Enable Live Process Monitoring (optional)
+process_config:
+  enabled: true
+
+# Use the forwarder to send metrics, logs, and traces in the event of network disruption to datadoghq
+forwarder:
+  retry_queue_payloads_on_disk: true
