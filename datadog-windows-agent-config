@@ -23,9 +23,7 @@ log_level: INFO
 remote_configuration:
   enabled: true
 
-# Logs Collection (add log file path)
-logs_enabled: true
-
+# Log(s) Collection
 #Windows Event Log
 logs_config:
   - type: wineventlog
@@ -59,9 +57,10 @@ process_config:
 # Use the forwarder to send metrics, logs, and traces in the event of network disruption to datadoghq
 forwarder:
   retry_queue_payloads_on_disk: true
+
 # Enable Network Device Monitoring (NDM)
 # Save device profiles to C:\ProgramData\Datadog\conf.d\snmp.d\profiles\
-# NDM Profile Repo: https://github.com/DataDog/integrations-core/tree/master/snmp/datadog_checks/snmp/data/profiles
+# NDM SNMP Profile Repo: https://github.com/DataDog/integrations-core/tree/master/snmp/datadog_checks/snmp/data/profiles
 network_devices:
   enabled: true
   snmp_traps:
@@ -76,5 +75,3 @@ system_probe_config:
   enabled: true
   network_config:
     enabled: true
-
-
